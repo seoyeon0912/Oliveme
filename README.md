@@ -65,8 +65,3 @@ OliveMe
 └─ package.json
 ```
 
-## 👩‍💻 Developer
-
-한세대학교 융합보안학과
-이서연, 신혜빈
-
