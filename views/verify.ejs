@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>2차 인증 - OliveMe</title>
+  <link rel="stylesheet" href="/style.css">
+
+  <style>
+    body {
+      background-color: #f5f0e6;
+      font-family: 'Apple SD Gothic Neo', sans-serif;
+      margin: 0;
+    }
+
+    .verify-container {
+      max-width: 720px;
+      margin: 80px auto;
+      background-color: #fdfaf4;
+      border: 1px solid #dbe4c6;
+      border-radius: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      padding: 60px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #2e3b2e;
+      font-size: 34px;
+      margin-bottom: 20px;
+    }
+
+    p {
+      color: #555;
+      font-size: 18px;
+    }
+
+    .timer-box {
+      margin: 20px auto 30px;
+      font-size: 22px;
+      font-weight: bold;
+      color: #2e3b2e;
+    }
+
+    #timer {
+      color: #d85c5c;
+    }
+
+    input {
+      width: 100%;
+      padding: 16px;
+      border: 1px solid #dbe4c6;
+      border-radius: 16px;
+      box-sizing: border-box;
+      margin-bottom: 25px;
+      text-align: center;
+      font-size: 22px;
+    }
+
+    .verify-btn {
+      background-color: #b9df9f;
+      border: none;
+      padding: 14px 32px;
+      border-radius: 28px;
+      color: #fff;
+      font-size: 22px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .verify-btn:hover {
+      background-color: #a6ce8f;
+    }
+
+    .resend-btn {
+      margin-top: 18px;
+      background-color: transparent;
+      border: 1px solid #b9df9f;
+      padding: 10px 24px;
+      border-radius: 24px;
+      color: #2e3b2e;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .resend-btn:hover {
+      background-color: #eef7e8;
+    }
+
+    .resend-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .error {
+      color: red;
+      margin-bottom: 15px;
+      font-size: 16px;
+    }
+
+    .message {
+      margin-top: 15px;
+      font-size: 15px;
+      color: #2e3b2e;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- expiresAt 안전하게 전달 -->
+  <div 
+    id="verifyData" 
+    data-expires-at="<%= typeof expiresAt !== 'undefined' ? expiresAt : 0 %>">
+  </div>
+
+  <div class="verify-container">
+    <h2>2차 인증</h2>
+    <p>회원가입 시 입력한 이메일로 전송된 인증번호를 입력하세요.</p>
+
+    <div class="timer-box">
+      남은 시간: <span id="timer">10:00</span>
+    </div>
+
+    <% if (typeof error !== 'undefined' && error) { %>
+      <p class="error"><%= error %></p>
+    <% } %>
+
+    <form action="/verify" method="POST">
+      <input 
+        type="text" 
+        name="code" 
+        placeholder="인증번호 6자리 입력" 
+        maxlength="6" 
+        required
+      >
+      <button type="submit" class="verify-btn">인증하기</button>
+    </form>
+
+    <button 
+      type="button" 
+      class="resend-btn" 
+      id="resendBtn"
+      onclick="resendCode()">
+      코드 재전송
+    </button>
+
+    <div class="message" id="message"></div>
+  </div>
+
+  <script>
+    const verifyData = document.getElementById("verifyData");
+    let expiresAt = Number(verifyData.dataset.expiresAt || 0);
+
+    const timerEl = document.getElementById("timer");
+    const messageEl = document.getElementById("message");
+    const resendBtn = document.getElementById("resendBtn");
+
+    function updateTimer() {
+      const now = Date.now();
+      const remaining = expiresAt - now;
+
+      if (!expiresAt || remaining <= 0) {
+        timerEl.textContent = "00:00";
+        messageEl.textContent = "인증 시간이 만료되었습니다. 코드 재전송을 눌러주세요.";
+        return;
+      }
+
+      const minutes = Math.floor(remaining / 1000 / 60);
+      const seconds = Math.floor((remaining / 1000) % 60);
+
+      timerEl.textContent =
+        String(minutes).padStart(2, "0") + ":" +
+        String(seconds).padStart(2, "0");
+    }
+
+    async function resendCode() {
+      resendBtn.disabled = true;
+      messageEl.textContent = "인증번호를 재전송 중입니다...";
+
+      try {
+        const response = await fetch("/resend-code", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          }
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          expiresAt = Number(data.expiresAt);
+          messageEl.textContent = "인증번호가 이메일로 재전송되었습니다.";
+          updateTimer();
+        } else {
+          messageEl.textContent = data.message || "재전송에 실패했습니다.";
+        }
+      } catch (err) {
+        messageEl.textContent = "재전송 중 오류가 발생했습니다.";
+      }
+
+      setTimeout(function () {
+        resendBtn.disabled = false;
+      }, 3000);
+    }
+
+    updateTimer();
+    setInterval(updateTimer, 1000);
+  </script>
+
+</body>
+</html>

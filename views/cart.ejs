@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>장바구니 - OliveMe</title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+    body {
+        background-color: #fffaf2;
+        font-family: 'Apple SD Gothic Neo', sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #333;
+    }
+
+    .cart-container {
+        max-width: 800px;
+        margin: auto;
+        padding: 20px;
+    }
+
+    .cart-item {
+        background-color: #ffffff;
+        border: 1px solid #e0dcd3;
+        border-radius: 16px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px;
+        margin-bottom: 20px;
+    }
+
+    .cart-item img {
+        width: 80px;
+        height: 80px;
+        object-fit: contain;
+        border-radius: 8px;
+        margin-right: 20px;
+    }
+
+    .item-info {
+        flex: 1;
+    }
+
+    .item-name {
+        font-weight: bold;
+        font-size: 16px;
+        margin-bottom: 6px;
+    }
+
+    .item-price {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 10px;
+    }
+
+    .item-actions {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    .item-actions form {
+        margin: 4px 0;
+    }
+
+    .item-actions input[type="number"] {
+        width: 60px;
+        padding: 5px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+    }
+
+    .btn {
+        background-color: #b9df9f;
+        color: #fff;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 16px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .btn:hover {
+        background-color: #a6ce8f;
+    }
+
+    .summary {
+        text-align: right;
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 30px;
+    }
+
+    .continue-btn, .order-btn {
+        display: flex;
+        justify-content: center;
+        margin-top: 30px;
+        gap: 20px;
+    }
+
+    .continue-btn a,
+    .order-btn form button {
+        background-color: #fce38a;
+        color: #444;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 20px;
+        font-weight: bold;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+        transition: background-color 0.2s;
+        border: none;
+        cursor: pointer;
+    }
+
+    .continue-btn a:hover,
+    .order-btn form button:hover {
+        background-color: #fcd657;
+    }
+
+    .empty {
+        text-align: center;
+        margin-top: 100px;
+        color: #999;
+        font-size: 18px;
+    }
+    </style>
+</head>
+<body>
+
+    <%- include('partials/header') %>
+    
+    <div class="cart-container">
+        <h1>🛒 내 장바구니</h1>
+
+        <% if (cart.length === 0) { %>
+            <p class="empty">장바구니가 비어 있어요 😢</p>
+        <% } else { 
+            let total = 0;
+        %>
+            <% cart.forEach(item => {
+                const subtotal = item.price * item.quantity;
+                total += subtotal;
+            %>
+            <div class="cart-item">
+                <img src="/img/<%= item.image %>" alt="상품 이미지">
+                <div class="item-info">
+                    <div class="item-name"><%= item.name %></div>
+                    <div class="item-price"><%= item.price.toLocaleString() %>원 × <%= item.quantity %> = <%= subtotal.toLocaleString() %>원</div>
+                </div>
+                <div class="item-actions">
+                    <form action="/cart/update" method="POST">
+                        <input type="hidden" name="id" value="<%= item.id %>">
+                        <input type="number" name="quantity" value="<%= item.quantity %>" min="1">
+                        <button class="btn" type="submit">수정</button>
+                    </form>
+                    <form action="/cart/delete" method="POST">
+                        <input type="hidden" name="id" value="<%= item.id %>">
+                        <button class="btn" type="submit">삭제</button>
+                    </form>
+                </div>
+            </div>
+            <% }); %>
+
+            <div class="summary">
+                총 합계: <%= total.toLocaleString() %>원
+            </div>
+
+            <div class="order-btn">
+                <form action="/order/checkout" method="POST">
+                    <button type="submit">✅ 주문하기</button>
+                </form>
+            </div>
+
+            <div class="continue-btn">
+                <a href="/">← 쇼핑 계속하기</a>
+            </div>
+        <% } %>
+    </div>
+</body>
+</html>

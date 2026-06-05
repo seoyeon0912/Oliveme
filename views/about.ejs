@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Brand History</title>
+
+<link rel="stylesheet" href="/style.css">
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Apple SD Gothic Neo', sans-serif;
+  background: #f5f0e6;
+}
+
+/* 공통 */
+.section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 80px 10%;
+  box-sizing: border-box;
+}
+
+/* 1. 메인 배너 */
+.hero {
+  background: #fdfaf4;
+}
+
+.hero-text h1 {
+  font-size: 52px;
+  color: #2e3b2e;
+  margin-bottom: 20px;
+}
+
+.hero-text p {
+  color: #666;
+  margin-top: 15px;
+  font-size: 22px;
+  line-height: 1.7;
+}
+
+.hero img {
+  width: 430px;
+  border-radius: 18px;
+}
+
+/* 2. 브랜드 스토리 */
+.story {
+  background: #f5f0e6;
+}
+
+.story h2 {
+  font-size: 38px;
+  color: #2e3b2e;
+  margin-bottom: 20px;
+}
+
+.story p {
+  font-size: 20px;
+  line-height: 1.7;
+  color: #666;
+}
+
+.story img {
+  width: 500px;
+  border-radius: 18px;
+  object-fit: cover;
+}
+
+/* 3. 가치 */
+.values {
+  text-align: center;
+  background: #fff;
+  flex-direction: column;
+}
+
+.values h2 {
+  font-size: 42px;
+  color: #2e3b2e;
+}
+
+.value-grid {
+  display: flex;
+  gap: 40px;
+  margin-top: 50px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.value-item {
+  width: 220px;
+  background: #f5f0e6;
+  padding: 30px 20px;
+  border-radius: 18px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+}
+
+.value-item h4 {
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: #2e3b2e;
+}
+
+.value-item p {
+  color: #666;
+  line-height: 1.6;
+}
+
+/* 버튼 */
+.back-btn {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background: #b9df9f;
+  border: none;
+  padding: 14px 24px;
+  border-radius: 30px;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.back-btn:hover {
+  background: #a4cf89;
+}
+</style>
+
+</head>
+
+<body>
+
+<%- include('partials/header') %>
+
+<!-- 1. 메인 -->
+<div class="section hero">
+  <div class="hero-text">
+    <h1>OLIVE ME</h1>
+    <p>
+      자연의 건강함을 담아<br>
+      당신의 피부에 진심을 전합니다.
+    </p>
+  </div>
+
+  <img src="/img/product.png" alt="OliveMe 제품">
+</div>
+
+<!-- 2. 브랜드 스토리 -->
+<div class="section story">
+  <div>
+    <h2>올리브미의 시작</h2>
+
+    <p>
+      올리브미는 자연 유래 성분과 건강한 아름다움을
+      바탕으로 시작되었습니다.<br><br>
+
+      피부에 부담을 줄이고,
+      누구나 안심하고 사용할 수 있는 화장품을 만들기 위해
+      끊임없이 연구합니다.
+    </p>
+  </div>
+
+  <img src="/img/nature.png" alt="브랜드 스토리">
+</div>
+
+<!-- 3. 가치 -->
+<div class="section values">
+  <h2>올리브미의 약속</h2>
+
+  <div class="value-grid">
+
+    <div class="value-item">
+      <h4>🌿 자연 성분</h4>
+      <p>건강한 원료만을 사용하여 피부 본연의 힘을 지켜드립니다.</p>
+    </div>
+
+    <div class="value-item">
+      <h4>🧪 안전한 처방</h4>
+      <p>민감한 피부도 사용할 수 있도록 자극을 최소화합니다.</p>
+    </div>
+
+    <div class="value-item">
+      <h4>🔍 품질관리</h4>
+      <p>엄격한 테스트와 검수를 통해 안정성을 높였습니다.</p>
+    </div>
+
+    <div class="value-item">
+      <h4>🌍 지속가능</h4>
+      <p>환경을 생각하는 지속 가능한 브랜드를 지향합니다.</p>
+    </div>
+
+  </div>
+</div>
+
+<button class="back-btn" onclick="location.href='/'">
+  홈으로 이동
+</button>
+
+</body>
+</html>

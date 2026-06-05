@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>배송지 관리 - OliveMe</title>
+  <link rel="stylesheet" href="/style.css">
+
+  <style>
+    body {
+      background-color: #f5f0e6;
+      font-family: 'Apple SD Gothic Neo', sans-serif;
+      margin: 0;
+    }
+
+    .address-box {
+      width: 420px;
+      margin: 80px auto;
+      background-color: #fdfaf4;
+      border: 1px solid #dbe4c6;
+      border-radius: 16px;
+      padding: 35px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+
+    h2 {
+      text-align: center;
+      color: #2e3b2e;
+      margin-bottom: 25px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      color: #444;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #dbe4c6;
+      border-radius: 10px;
+      margin-bottom: 16px;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+
+    .success {
+      color: green;
+      text-align: center;
+      margin-bottom: 15px;
+      font-size: 14px;
+    }
+
+    .btn-area {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    button {
+      background-color: #b9df9f;
+      color: white;
+      border: none;
+      padding: 9px 18px;
+      border-radius: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      margin: 3px;
+    }
+
+    button:hover {
+      background-color: #a6ce8f;
+    }
+
+    .back-btn {
+      background-color: #ccc;
+    }
+
+    .back-btn:hover {
+      background-color: #aaa;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="address-box">
+    <h2>🚚 배송지 관리</h2>
+
+    <% if (success) { %>
+      <div class="success"><%= success %></div>
+    <% } %>
+
+    <form action="/address" method="POST">
+      <label for="receiver">받는 사람</label>
+      <input 
+        type="text" 
+        id="receiver" 
+        name="receiver" 
+        value="<%= user.receiver || '' %>" 
+        required
+      >
+
+      <label for="phone">연락처</label>
+      <input 
+        type="text" 
+        id="phone" 
+        name="phone" 
+        value="<%= user.deliveryPhone || '' %>" 
+        placeholder="010-0000-0000"
+        required
+      >
+
+      <label for="zipcode">우편번호</label>
+      <input 
+        type="text" 
+        id="zipcode" 
+        name="zipcode" 
+        value="<%= user.zipcode || '' %>" 
+        required
+      >
+
+      <label for="address">주소</label>
+      <input 
+        type="text" 
+        id="address" 
+        name="address" 
+        value="<%= user.address || '' %>" 
+        required
+      >
+
+      <label for="detailAddress">상세주소</label>
+      <input 
+        type="text" 
+        id="detailAddress" 
+        name="detailAddress" 
+        value="<%= user.detailAddress || '' %>"
+      >
+
+      <div class="btn-area">
+        <button type="submit">저장하기</button>
+        <button type="button" class="back-btn" onclick="location.href='/mypage'">돌아가기</button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

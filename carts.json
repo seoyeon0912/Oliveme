@@ -1,0 +1,25 @@
+[
+  {
+    "user": "bear",
+    "id": "1",
+    "name": "립스틱",
+    "price": 15000,
+    "quantity": 2
+  },
+  {
+    "user": "bear",
+    "id": "3",
+    "name": "선크림",
+    "price": 15000,
+    "image": "sunscreen.png",
+    "quantity": 2
+  },
+  {
+    "user": "bear",
+    "id": "7",
+    "name": "아이섀도우",
+    "price": 31000,
+    "image": "eyeshadow.png",
+    "quantity": 1
+  }
+]

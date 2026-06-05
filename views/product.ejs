@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<title>OliveMe - <%= product.name %> 상세</title>
+<link rel="stylesheet" href="/style.css" />
+<style>
+body {
+    background-color: #f5f0e6;
+    font-family: 'Apple SD Gothic Neo', sans-serif;
+    margin: 0; padding: 0;
+}
+.container {
+    max-width: 800px;
+    margin: 60px auto;
+    padding: 40px 30px;
+    background: #fff;
+    border-radius: 24px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+.product-img {
+    width: 100%;
+    max-height: 420px;
+    object-fit: contain;
+    border-radius: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+.product-img:hover {
+    transform: scale(1.02);
+}
+h1 {
+    margin-bottom: 15px;
+    color: #2e3b2e;
+    font-weight: 700;
+    font-size: 2.2rem;
+}
+.price {
+    font-size: 24px;
+    color: #4caf50;
+    margin-bottom: 25px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+}
+.description {
+    font-size: 17px;
+    color: #555;
+    line-height: 1.7;
+    margin-bottom: 40px;
+    white-space: pre-line;
+}
+.btns {
+    display: flex;
+    gap: 20px;
+}
+.btn {
+    flex: 1;
+    padding: 14px 0;
+    background-color: #b9df9f;
+    border: none;
+    border-radius: 28px;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 10px rgba(185, 223, 159, 0.6);
+}
+.btn:hover {
+    background-color: #a6ce8f;
+    box-shadow: 0 6px 16px rgba(166, 206, 143, 0.8);
+}
+a.home-link {
+    display: block;
+    margin-top: 40px;
+    color: #5d8151;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+a.home-link:hover {
+    color: #7cb342;
+    text-decoration: underline;
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <img src="/img/<%= product.image %>" alt="<%= product.name %>" class="product-img" />
+    <h1><%= product.name %></h1>
+    <div class="price"><%= product.price.toLocaleString() %>원</div>
+    <div class="description"><%= product.description || '제품 설명이 없습니다.' %></div>
+
+    <div class="btns">
+    <form action="/cart/add" method="POST" style="flex:1;">
+        <input type="hidden" name="id" value="<%= product.id %>" />
+        <input type="hidden" name="quantity" value="1" />
+        <button type="submit" class="btn">🛒 장바구니에 담기</button>
+    </form>
+    <% if (isAdmin) { %>
+        <a href="/admin/product/edit/<%= product.id %>" class="btn">✏️ 제품 수정</a>
+    <% } %>
+    </div>
+
+    <a href="/" class="home-link">🏠 홈으로 돌아가기</a>
+</div>
+</body>
+</html>

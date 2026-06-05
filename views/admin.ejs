@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <title>관리자 페이지</title>
+    <link rel="stylesheet" href="/style.css" />
+    <style>
+    body {
+        background-color: #f5f0e6;
+        font-family: 'Apple SD Gothic Neo', sans-serif;
+        padding: 20px 40px;
+    }
+    h1 {
+        color: #2e3b2e;
+        margin-bottom: 30px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 40px;
+    }
+    table, th, td {
+        border: 1px solid #dbe4c6;
+    }
+    th, td {
+        padding: 12px 15px;
+        text-align: center;
+        color: #333;
+    }
+    th {
+        background-color: #b9df9f;
+        color: white;
+    }
+    button {
+        background-color: #b9df9f;
+        border: none;
+        color: white;
+        padding: 6px 12px;
+        border-radius: 12px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+    button:hover {
+        background-color: #a6ce8f;
+    }
+    a {
+        color: #5d8151;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+    form label {
+        display: block;
+        margin: 10px 0 5px;
+        font-weight: bold;
+        color: #4caf50;
+    }
+    form input[type="text"], form input[type="number"] {
+        width: 300px;
+        padding: 8px;
+        border-radius: 12px;
+        border: 1px solid #ccc;
+        font-size: 16px;
+        box-sizing: border-box;
+    }
+    form button[type="submit"] {
+        margin-top: 15px;
+        padding: 10px 24px;
+        width: 100%;
+        border-radius: 25px;
+        background-color: #b9df9f;
+        font-weight: bold;
+        color: white;
+        cursor: pointer;
+        border: none;
+    }
+    form button[type="submit"]:hover {
+        background-color: #a6ce8f;
+    }
+    </style>
+</head>
+<body>
+    <h1>🛠️ OliveMe 관리자 페이지</h1>
+
+    <h2>📦 상품 목록</h2>
+    <table>
+    <tr>
+        <th>ID</th>
+        <th>상품명</th>
+        <th>가격</th>
+        <th>삭제</th>
+        <th>수정</th>
+    </tr>
+    <% products.forEach(product => { %>
+        <tr>
+        <td><%= product.id %></td>
+        <td><%= product.name %></td>
+        <td><%= product.price %>원</td>
+        <td>
+            <form action="/admin/delete/<%= product.id %>" method="POST" onsubmit="return confirm('정말 삭제할까요?');">
+            <button type="submit">🗑️ 삭제</button>
+            </form>
+        </td>
+        <td>
+            <a href="/admin/edit/<%= product.id %>">✏️ 수정</a>
+        </td>
+        </tr>
+    <% }) %>
+    </table>
+
+    <h2>➕ 상품 추가</h2>
+    <form action="/admin/add" method="POST">
+    <label>상품명:</label>
+    <input type="text" name="name" required />
+    <label>가격(원):</label>
+    <input type="number" name="price" required />
+    <button type="submit">추가</button>
+    </form>
+
+    <br />
+    <a href="/">← 메인으로 돌아가기</a>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<title>OliveMe - 오늘의 추천</title>
+<link rel="stylesheet" href="/style.css" />
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(to bottom right, #f8fbe9, #fff);
+        font-family: 'Apple SD Gothic Neo', sans-serif;
+        color: #333;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 30px;
+        background: #fefae0;
+        border-radius: 20px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 28px;
+        margin-bottom: 10px;
+        color: #5d8151;
+    }
+
+    .weather-info {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    .recommend-text {
+        font-size: 18px;
+        font-weight: 500;
+        margin-bottom: 10px;
+        color: #5d5d5d;
+    }
+
+    .product-recommend {
+        font-size: 16px;
+        background-color: #e6f0c9;
+        border-radius: 12px;
+        padding: 10px 16px;
+        display: inline-block;
+        margin-bottom: 30px;
+        color: #405d3c;
+        max-width: 600px;
+        word-break: keep-all;
+    }
+
+    .product-card {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #fdfaf4;
+        border: 1px solid #e1eec5;
+        border-radius: 16px;
+        padding: 24px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        transition: transform 0.2s;
+        gap: 35px;
+        max-width: 600px;
+        margin: 0 auto 40px auto;
+    }
+
+    .product-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .product-card img {
+        width: 120px;
+        height: 120px;
+        object-fit: contain;
+        margin: 0;
+        flex-shrink: 0;
+    }
+
+    .product-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+        text-align: center;
+    }
+
+    .product-name {
+        font-size: 20px;
+        font-weight: bold;
+        color: #444;
+        margin: 0;
+    }
+
+    .cart-btn {
+        padding: 10px 24px;
+        border-radius: 25px;
+        background-color: #b9df9f;
+        color: white;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.2s;
+        white-space: nowrap;
+    }
+
+    .cart-btn:hover {
+        background-color: #a4cd8a;
+    }
+
+    form {
+        margin: 0;
+    }
+
+    .home-btn {
+        display: inline-block;
+        margin: 10px 10px 0;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 25px;
+        background-color: #b9df9f;
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .home-btn:hover {
+        background-color: #a4cd8a;
+    }
+</style>
+</head>
+
+<body>
+
+<%- include('partials/header') %>
+
+<div class="container">
+    <h1>🌤️ 오늘의 화장품 추천</h1>
+
+    <div class="weather-info">
+        현재 날씨는 <strong><%= weather %></strong>, 기온은 <strong><%= temp %>℃</strong>입니다.
+    </div>
+
+    <div class="recommend-text"><%= weatherMessage %></div>
+
+    <% if (productRecommendation) { %>
+        <div class="product-recommend"><%= productRecommendation %></div>
+    <% } %>
+
+    <div class="product-card">
+        <img
+            src="/img/<%= selectedProduct && selectedProduct.image ? selectedProduct.image : (
+                        recommended.includes('선크림') ? 'sunscreen.png' :
+                        recommended.includes('수분크림') ? 'cream.png' :
+                        recommended.includes('마스카라') ? 'mascara.png' :
+                        recommended.includes('틴트') ? 'tint.png' :
+                        (recommended.includes('립스틱') || recommended.includes('립밤')) ? 'lipstick.png' :
+                        'essencefoundation.png'
+                    ) %>"
+            alt="<%= recommended %>"
+        />
+
+        <div class="product-info">
+            <p class="product-name"><%= recommended %></p>
+
+            <form action="/cart/add" method="POST">
+                <% if (selectedProduct && selectedProduct.id) { %>
+                    <input type="hidden" name="id" value="<%= selectedProduct.id %>" />
+                <% } %>
+
+                <input type="hidden" name="name" value="<%= selectedProduct.name %>" />
+                <input type="hidden" name="price" value="<%= selectedProduct.price %>" />
+
+                <button type="submit" class="cart-btn">🛒 장바구니에 담기</button>
+            </form>
+        </div>
+    </div>
+
+    <a href="/" class="home-btn">🏠 홈으로 돌아가기</a>
+</div>
+
+</body>
+</html>

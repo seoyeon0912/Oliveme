@@ -1,0 +1,36 @@
+<header class="main-header">
+
+  <div class="logo-area" onclick="location.href='/'">
+    <img src="/img/logo.png" alt="OliveMe 로고" class="logo-img">
+
+    <div class="logo-text">
+      OliveMe 🌿
+    </div>
+  </div>
+
+  <nav class="nav-menu">
+
+    <% if (session && session.username) { %>
+
+      <span class="username">
+        <%= session.username %>님
+      </span>
+
+      <a href="/logout">로그아웃</a>
+      <a href="/cart">장바구니</a>
+      <a href="/mypage">마이페이지</a>
+      <a href="/recommend">추천</a>
+      <a href="/about">ABOUT</a>
+
+    <% } else { %>
+
+      <a href="/login">로그인</a>
+      <a href="/register">회원가입</a>
+      <a href="/recommend">추천</a>
+      <a href="/about">ABOUT</a>
+
+    <% } %>
+
+  </nav>
+
+</header>

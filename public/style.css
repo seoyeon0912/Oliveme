@@ -1,0 +1,154 @@
+body {
+    background-color: #eaffd0;
+    font-family: 'Segoe UI', 'Noto Sans KR', sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3 {
+    font-weight: 600;
+}
+
+header, footer {
+    background-color: #d4fcb3;
+    padding: 1em;
+    text-align: center;
+    border-radius: 0 0 20px 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+section, main {
+    padding: 2em;
+}
+
+button {
+    background-color: #9ee37d;
+    border: none;
+    padding: 0.6em 1.2em;
+    border-radius: 12px;
+    font-size: 1em;
+    cursor: pointer;
+    font-weight: bold;
+    color: #fff;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #7fd66d;
+}
+
+input, select, textarea {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 0.6em;
+    width: 100%;
+    margin-bottom: 1em;
+    font-size: 1em;
+    font-family: 'Segoe UI', 'Noto Sans KR', sans-serif;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+th, td {
+    padding: 1em;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+}
+
+th {
+    background-color: #baf7a2;
+    font-weight: bold;
+}
+
+/* =========================
+   공통 헤더
+========================= */
+
+.main-header {
+    width: 100%;
+    height: 145px;
+
+    background-color: #f5f0e6;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 55px;
+
+    box-sizing: border-box;
+
+    border-radius: 0 0 22px 22px;
+
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+
+    margin-bottom: 50px;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    cursor: pointer;
+}
+
+.logo-img {
+    width: 130px;
+    height: 130px;
+
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.logo-text {
+    font-size: 30px;
+    font-weight: bold;
+
+    color: #2e3b2e;
+}
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+}
+
+.username {
+    font-size: 18px;
+    font-weight: bold;
+
+    color: #222;
+
+    margin-right: 6px;
+}
+
+.nav-menu a {
+    background-color: #b9df9f;
+
+    color: white;
+
+    text-decoration: none;
+
+    padding: 8px 16px;
+
+    border-radius: 18px;
+
+    font-size: 15px;
+    font-weight: bold;
+
+    transition: 0.2s;
+}
+
+.nav-menu a:hover {
+    background-color: #a6ce8f;
+}

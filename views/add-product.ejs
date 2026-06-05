@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>상품 추가</title>
+</head>
+<body>
+    <h2>신규 상품 추가</h2>
+    <form method="POST" action="/admin/add-product">
+    <input type="text" name="name" placeholder="상품명" required><br>
+    <input type="number" name="price" placeholder="가격" required><br>
+    <button type="submit">추가하기</button>
+    </form>
+    <a href="/products">← 상품 목록으로 이동</a>
+</body>
+</html>

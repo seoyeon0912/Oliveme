@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>주문 내역 - OliveMe</title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+    body {
+        background-color: #fffaf2;
+        font-family: 'Apple SD Gothic Neo', sans-serif;
+        padding: 40px 20px;
+        color: #333;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: auto;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 40px;
+        color: #6a994e;
+    }
+
+    .order-card {
+        background-color: #fdfaf4;
+        border: 1px solid #e0dcd3;
+        border-radius: 20px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        padding: 24px;
+        margin-bottom: 30px;
+    }
+
+    .order-time {
+        font-size: 14px;
+        color: #888;
+        margin-bottom: 12px;
+    }
+
+    .item-list {
+        padding-left: 0;
+    }
+
+    .item-list li {
+        list-style: none;
+        padding: 10px 14px;
+        margin-bottom: 8px;
+        background-color: #eef5e8;
+        border-radius: 12px;
+    }
+
+    .empty {
+        text-align: center;
+        margin-top: 100px;
+        font-size: 18px;
+        color: #999;
+    }
+
+    .btns {
+        text-align: center;
+        margin-top: 40px;
+    }
+
+    .btns a {
+        background-color: #d8e8c6;
+        color: #333;
+        padding: 10px 20px;
+        border-radius: 20px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background-color 0.2s;
+    }
+
+    .btns a:hover {
+        background-color: #c2d8ac;
+    }
+    </style>
+</head>
+<body>
+
+    <%- include('partials/header') %>
+    
+    <div class="container">
+    <h1>🗂️ <%= session.username %>님의 주문 내역</h1>
+
+    <% if (orders.length === 0) { %>
+        <p class="empty">아직 주문 내역이 없어요 😢</p>
+    <% } else { %>
+        <% orders.forEach((order, i) => { %>
+        <div class="order-card">
+            <p class="order-time">주문 시간: <%= order.time %></p>
+            <ul class="item-list">
+            <% order.items.forEach(item => { %>
+                <li><%= item.name %> - <%= item.quantity %>개</li>
+            <% }) %>
+            </ul>
+        </div>
+        <% }) %>
+    <% } %>
+
+    <div class="btns">
+        <a href="/">← 홈으로 돌아가기</a>
+    </div>
+    </div>
+</body>
+</html>

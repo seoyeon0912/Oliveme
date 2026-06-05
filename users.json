@@ -1,0 +1,50 @@
+[
+  {
+    "username": "bear",
+    "password": "$2b$10$q4DgcQqLihtxZ1v4khTmT.gCiz1NAgoJTyh9OBpYqUiot8Oyg94Y6",
+    "cart": [],
+    "isAdmin": false,
+    "loginFailCount": 1
+  },
+  {
+    "username": "관리자",
+    "password": "$2b$10$zoGxdJJhpi16zlk8aw8yM.bcoUYMFS5HoBHv.ClgkJzzXrKuPphty",
+    "cart": [],
+    "isAdmin": false,
+    "loginFailCount": 0,
+    "lockUntil": null
+  },
+  {
+    "username": "hamin1101",
+    "password": "$2b$10$jSle8buEPeNAwR6H9.oGduh/YkW9Yd4BpbkTuVIvC83WgstcTAM1C",
+    "cart": [],
+    "isAdmin": false,
+    "loginFailCount": 0,
+    "lockUntil": null
+  },
+  {
+    "username": "cake1",
+    "email": "happybin0722@gmail.com",
+    "password": "$2b$10$CEBIeIsr1QcF3tpODlGZUu5eRaiuDCqsDY6DNfvfvLhUkJ2VgfzOu",
+    "cart": [],
+    "isAdmin": false,
+    "loginFailCount": 0,
+    "lockUntil": null
+  },
+  {
+    "username": "noah0210",
+    "email": "dltjdus213@naver.com",
+    "password": "$2b$10$pweeR4cDoBHAQ8LLRwTNQ.X9IDvnHJJpNe1zMCLz/AhBP2eOjfsEu",
+    "cart": [],
+    "isAdmin": false,
+    "name": "",
+    "phone": "",
+    "receiver": "",
+    "deliveryPhone": "",
+    "zipcode": "",
+    "address": "",
+    "detailAddress": "",
+    "loginFailCount": 0,
+    "lockUntil": null
+  }
+]

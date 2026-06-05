@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>마이페이지 - OliveMe</title>
+  <link rel="stylesheet" href="/style.css">
+
+  <style>
+    body {
+      background-color: #f5f0e6;
+      font-family: 'Apple SD Gothic Neo', sans-serif;
+      margin: 0;
+    }
+
+    .mypage-container {
+      max-width: 900px;
+      margin: 60px auto;
+      padding: 20px;
+    }
+
+    .mypage-title {
+      color: #2e3b2e;
+      margin-bottom: 25px;
+    }
+
+    .profile-box {
+      background-color: #fdfaf4;
+      border: 1px solid #dbe4c6;
+      border-radius: 16px;
+      padding: 25px;
+      margin-bottom: 25px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+
+    .profile-box p {
+      margin: 8px 0;
+      color: #444;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .menu-card {
+      background-color: #fdfaf4;
+      border: 1px solid #dbe4c6;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+
+    .menu-card h3 {
+      margin-top: 0;
+      color: #2e3b2e;
+    }
+
+    .menu-card p {
+      color: #666;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .order-box {
+      border-top: 1px solid #ddd;
+      padding: 14px 0;
+      margin-top: 14px;
+    }
+
+    .order-date {
+      font-size: 14px;
+      color: #333;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .order-item {
+      background-color: #f5f0e6;
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 8px;
+    }
+
+    .order-product-name {
+      font-weight: bold;
+      color: #2e3b2e;
+      margin-bottom: 4px;
+      font-size: 15px;
+    }
+
+    .order-product-detail {
+      font-size: 13px;
+      color: #666;
+    }
+
+    .order-empty {
+      color: #777;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    .menu-card button {
+      background-color: #b9df9f;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .menu-card button:hover {
+      background-color: #a6ce8f;
+    }
+
+    .delete-btn {
+      background-color: #e57373 !important;
+    }
+
+    .delete-btn:hover {
+      background-color: #d85c5c !important;
+    }
+
+    .back-btn {
+      margin-top: 30px;
+      background-color: #b9df9f;
+      color: white;
+      border: none;
+      padding: 9px 18px;
+      border-radius: 20px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .back-btn:hover {
+      background-color: #a6ce8f;
+    }
+  </style>
+</head>
+
+<body>
+
+  <%- include('partials/header') %>
+  
+  <div class="mypage-container">
+    <h2 class="mypage-title">👤 마이페이지</h2>
+
+    <div class="profile-box">
+      <h3>내 정보</h3>
+      <p><strong>아이디:</strong> <%= user.username %></p>
+      <p><strong>이메일:</strong> <%= user.email || '등록된 이메일 없음' %></p>
+      <p><strong>이름:</strong> <%= user.name || '미입력' %></p>
+      <p><strong>전화번호:</strong> <%= user.phone || '미입력' %></p>
+      <p><strong>배송지:</strong> 
+        <% if (user.address) { %>
+          <%= user.zipcode %> <%= user.address %> <%= user.detailAddress %>
+        <% } else { %>
+          등록된 배송지 없음
+        <% } %>
+      </p>
+    </div>
+
+    <div class="menu-grid">
+      <div class="menu-card">
+        <h3>🧾 구매내역</h3>
+        <p>주문한 상품과 결제 내역을 확인할 수 있습니다.</p>
+
+        <% if (orders && orders.length > 0) { %>
+          <% orders.forEach(order => { %>
+            <div class="order-box">
+              <div class="order-date">
+                주문일: <%= order.time || order.date || '날짜 정보 없음' %>
+              </div>
+
+              <% if (order.items && order.items.length > 0) { %>
+                <% order.items.forEach(item => { %>
+                  <div class="order-item">
+                    <div class="order-product-name">
+                      <%= item.name || '상품명 없음' %>
+                    </div>
+
+                    <div class="order-product-detail">
+                      수량: <%= item.quantity || 1 %>개
+                    </div>
+                  </div>
+                <% }) %>
+              <% } else { %>
+                <div class="order-empty">
+                  상품 정보가 저장되지 않은 주문입니다.
+                </div>
+              <% } %>
+            </div>
+          <% }) %>
+        <% } else { %>
+          <p>아직 구매내역이 없습니다.</p>
+        <% } %>
+      </div>
+
+      <div class="menu-card">
+        <h3>🚚 배송지 관리</h3>
+        <p>기본 배송지와 받는 사람 정보를 관리할 수 있습니다.</p>
+        <button type="button" onclick="location.href='/address'">
+          배송지 관리
+        </button>
+      </div>
+
+      <div class="menu-card">
+        <h3>🔐 개인정보 관리</h3>
+        <p>이름, 전화번호, 이메일 정보를 수정할 수 있습니다.</p>
+        <button type="button" onclick="location.href='/profile-edit'">
+          개인정보 수정
+        </button>
+      </div>
+
+      <div class="menu-card">
+        <h3>⚠️ 회원탈퇴</h3>
+        <p>계정을 삭제하려면 비밀번호 확인 후 탈퇴를 진행합니다.</p>
+        <button class="delete-btn" onclick="location.href='/delete-account'">
+          회원탈퇴
+        </button>
+      </div>
+    </div>
+
+    <button class="back-btn" onclick="location.href='/'">홈으로 돌아가기</button>
+  </div>
+</body>
+</html>

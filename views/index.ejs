@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>OliveMe - 홈</title>
+  <link rel="stylesheet" href="/style.css">
+
+  <style>
+    body {
+      background-color: #f5f0e6;
+      font-family: 'Apple SD Gothic Neo', sans-serif;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      background-color: #fdfaf4;
+      border: 1px solid #dbe4c6;
+      border-radius: 16px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    }
+
+    .card img {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      margin-bottom: 10px;
+    }
+
+    .card-name {
+      font-size: 16px;
+      margin: 8px 0;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .card-price {
+      font-size: 14px;
+      margin-bottom: 12px;
+      color: #555;
+    }
+
+    .add-btn {
+      background-color: #b9df9f;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .add-btn:hover {
+      background-color: #a6ce8f;
+    }
+  </style>
+</head>
+
+<body>
+
+  <%- include('partials/header') %>
+
+  <div class="container">
+    <h2>🛍️ 상품 목록</h2>
+
+    <div class="grid">
+      <% products.forEach(product => { %>
+        <div class="card" onclick="location.href='/product/<%= product.id %>'">
+          <img src="/img/<%= product.image %>" alt="<%= product.name %>">
+
+          <div class="card-name"><%= product.name %></div>
+          <div class="card-price"><%= product.price %>원</div>
+
+          <form action="/cart/add" method="POST" onclick="event.stopPropagation();">
+            <input type="hidden" name="id" value="<%= product.id %>">
+            <button class="add-btn" type="submit">담기</button>
+          </form>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+
+</body>
+</html>
